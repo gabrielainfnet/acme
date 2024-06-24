@@ -6,6 +6,8 @@ public class FuncionarioTerceirizado extends Funcionario {
     private String empresaContratante;
     private Integer tempoContrato;
 
+    //bad smells: long parameter list
+    //refactorings: padrão builder
     public FuncionarioTerceirizado(String nome, List<Telefone> telefones, Endereco endereco, Setor setor,
                                    Cargo cargo, double salario, String empresaContratante, Integer tempoContrato) {
 

@@ -11,6 +11,8 @@ public class Funcionario {
     private Cargo cargo;
     private double salario;
 
+    //bad smells: long parameter list
+    //refactorings: padrão builder
     public Funcionario(String nome, List<Telefone> telefones, Endereco endereco, Setor setor, Cargo cargo,
                        double salario) {
 

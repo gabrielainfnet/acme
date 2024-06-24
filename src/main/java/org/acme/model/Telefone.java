@@ -1,5 +1,7 @@
 package org.acme.model;
 
+//bad smells: primitive obsession, data class
+//refactoring: substituir tipos primitivos por objetos de valor, adicionar mais funcionalidades a classe
 public class Telefone {
     private String ddd;
     private String numero;
