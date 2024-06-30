@@ -1,39 +1,46 @@
 package org.acme.model;
 
-import java.util.List;
-
 public class FuncionarioTerceirizado extends Funcionario {
     private String empresaContratante;
     private Integer tempoContrato;
 
-    //bad smells: long parameter list
-    //refactorings: padrão builder
-    public FuncionarioTerceirizado(String nome, List<Telefone> telefones, Endereco endereco, Setor setor,
-                                   Cargo cargo, double salario, String empresaContratante, Integer tempoContrato) {
-
-        super(nome, telefones, endereco, setor, cargo, salario);
-        this.empresaContratante = empresaContratante;
-        this.tempoContrato = tempoContrato;
+    private FuncionarioTerceirizado(Builder builder) {
+        super(builder);
+        this.empresaContratante = builder.empresaContratante;
+        this.tempoContrato = builder.tempoContrato;
     }
 
-    public String getEmpresaContratante() {
-        return empresaContratante;
-    }
+    public static class Builder extends Funcionario.Builder<Builder> {
+        private String empresaContratante;
+        private Integer tempoContrato;
 
-    public Integer getTempoContrato() {
-        return tempoContrato;
-    }
+        public Builder empresaContratante(String empresaContratante) {
+            this.empresaContratante = empresaContratante;
+            return this;
+        }
 
-    public void setEmpresaContratante(String empresaContratante) {
-        this.empresaContratante = empresaContratante;
-    }
+        public Builder tempoContrato(Integer tempoContrato) {
+            this.tempoContrato = tempoContrato;
+            return this;
+        }
 
-    public void setTempoContrato(Integer tempoContrato) {
-        this.tempoContrato = tempoContrato;
+        @Override
+        public FuncionarioTerceirizado build() {
+            return new FuncionarioTerceirizado(this);
+        }
+
+        @Override
+        protected Builder self() {
+            return this;
+        }
     }
 
     @Override
     public void aumentarSalario(double percentual) {
         throw new UnsupportedOperationException("Funcionário terceirizado não pode receber aumento de salário");
+    }
+
+    public void renovarContrato(Integer novoTempoContrato) {
+        this.tempoContrato = novoTempoContrato;
     }
 }

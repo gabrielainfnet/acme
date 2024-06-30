@@ -3,73 +3,71 @@ package org.acme.model;
 import java.util.List;
 
 public class Funcionario {
+    protected String nome;
+    protected List<Telefone> telefones;
+    protected Endereco endereco;
+    protected Setor setor;
+    protected Cargo cargo;
+    protected double salario;
 
-    private String nome;
-    private List<Telefone> telefones;
-    private Endereco endereco;
-    private Setor setor;
-    private Cargo cargo;
-    private double salario;
-
-    //bad smells: long parameter list
-    //refactorings: padrão builder
-    public Funcionario(String nome, List<Telefone> telefones, Endereco endereco, Setor setor, Cargo cargo,
-                       double salario) {
-
-        this.nome = nome;
-        this.telefones = telefones;
-        this.endereco = endereco;
-        this.setor = setor;
-        this.cargo = cargo;
-        this.salario = salario;
+    protected Funcionario(Builder<?> builder) {
+        this.nome = builder.nome;
+        this.telefones = builder.telefones;
+        this.endereco = builder.endereco;
+        this.setor = builder.setor;
+        this.cargo = builder.cargo;
+        this.salario = builder.salario;
     }
 
-    public String getNome() {
-        return nome;
-    }
+    public static class Builder<T extends Builder<T>> {
+        protected String nome;
+        protected List<Telefone> telefones;
+        protected Endereco endereco;
+        protected Setor setor;
+        protected Cargo cargo;
+        protected double salario;
 
-    public List<Telefone> getTelefones() {
-        return telefones;
-    }
+        public T nome(String nome) {
+            this.nome = nome;
+            return self();
+        }
 
-    public Endereco getEndereco() {
-        return endereco;
-    }
+        public T telefones(List<Telefone> telefones) {
+            this.telefones = telefones;
+            return self();
+        }
 
-    public Setor getSetor() {
-        return setor;
-    }
+        public T endereco(Endereco endereco) {
+            this.endereco = endereco;
+            return self();
+        }
 
-    public Cargo getCargo() {
-        return cargo;
-    }
+        public T setor(Setor setor) {
+            this.setor = setor;
+            return self();
+        }
 
-    public double getSalario() {
-        return salario;
-    }
+        public T cargo(Cargo cargo) {
+            this.cargo = cargo;
+            return self();
+        }
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
+        public T salario(double salario) {
+            this.salario = salario;
+            return self();
+        }
 
-    public void setTelefones(List<Telefone> telefones) {
-        this.telefones = telefones;
-    }
+        @SuppressWarnings("unchecked")
+        protected T self() {
+            return (T) this;
+        }
 
-    public void setEndereco(Endereco endereco) {
-        this.endereco = endereco;
-    }
-
-    public void setSetor(Setor setor) {
-        this.setor = setor;
-    }
-
-    public void setCargo(Cargo cargo) {
-        this.cargo = cargo;
+        public Funcionario build() {
+            return new Funcionario(this);
+        }
     }
 
     public void aumentarSalario(double percentual) {
         salario += salario * percentual / 100;
     }
-
 }

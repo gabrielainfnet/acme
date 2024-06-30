@@ -1,29 +1,31 @@
 package org.acme.model;
 
-//bad smells: primitive obsession, data class
-//refactoring: substituir tipos primitivos por objetos de valor, adicionar mais funcionalidades a classe
 public class Telefone {
-    private String ddd;
-    private String numero;
+    private Integer ddd;
+    private Integer numero;
 
-    public Telefone(String ddd, String numero) {
+    public Telefone(Integer ddd, Integer numero) {
         this.ddd = ddd;
         this.numero = numero;
     }
 
-    public String getDdd() {
+    public Integer getDdd() {
         return ddd;
     }
 
-    public String getNumero() {
+    public Integer getNumero() {
         return numero;
     }
 
-    public void setDdd(String ddd) {
+    public void setDdd(Integer ddd) {
         this.ddd = ddd;
     }
 
-    public void setNumero(String numero) {
+    public void setNumero(Integer numero) {
         this.numero = numero;
+    }
+
+    public String formatarNumero() {
+        return "(" + ddd + ") " + numero;
     }
 }

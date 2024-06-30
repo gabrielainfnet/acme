@@ -1,69 +1,62 @@
 package org.acme.model;
 
-//bad smells: primitive obsession, data class
-//refactorings: substituir tipos primitivos por objetos de valor, adicionar mais funcionalidades a classe
 public class Endereco {
     private String rua;
-    private String numero;
+    private Integer numero;
     private String bairro;
     private String cidade;
     private String estado;
-    private String cep;
+    private Integer cep;
 
-    public Endereco(String rua, String numero, String bairro, String cidade, String estado, String cep) {
-        this.rua = rua;
-        this.numero = numero;
-        this.bairro = bairro;
-        this.cidade = cidade;
-        this.estado = estado;
-        this.cep = cep;
+    private Endereco(Builder builder) {
+        this.rua = builder.rua;
+        this.numero = builder.numero;
+        this.bairro = builder.bairro;
+        this.cidade = builder.cidade;
+        this.estado = builder.estado;
+        this.cep = builder.cep;
     }
 
-    public String getRua() {
-        return rua;
-    }
+    public static class Builder {
+        private String rua;
+        private Integer numero;
+        private String bairro;
+        private String cidade;
+        private String estado;
+        private Integer cep;
 
-    public String getNumero() {
-        return numero;
-    }
+        public Builder rua(String rua) {
+            this.rua = rua;
+            return this;
+        }
 
-    public String getBairro() {
-        return bairro;
-    }
+        public Builder numero(Integer numero) {
+            this.numero = numero;
+            return this;
+        }
 
-    public String getCidade() {
-        return cidade;
-    }
+        public Builder bairro(String bairro) {
+            this.bairro = bairro;
+            return this;
+        }
 
-    public String getEstado() {
-        return estado;
-    }
+        public Builder cidade(String cidade) {
+            this.cidade = cidade;
+            return this;
+        }
 
-    public String getCep() {
-        return cep;
-    }
+        public Builder estado(String estado) {
+            this.estado = estado;
+            return this;
+        }
 
-    public void setRua(String rua) {
-        this.rua = rua;
-    }
+        public Builder cep(Integer cep) {
+            this.cep = cep;
+            return this;
+        }
 
-    public void setNumero(String numero) {
-        this.numero = numero;
-    }
-
-    public void setBairro(String bairro) {
-        this.bairro = bairro;
-    }
-
-    public void setCidade(String cidade) {
-        this.cidade = cidade;
-    }
-
-    public void setEstado(String estado) {
-        this.estado = estado;
-    }
-
-    public void setCep(String cep) {
-        this.cep = cep;
+        public Endereco build() {
+            return new Endereco(this);
+        }
     }
 }
